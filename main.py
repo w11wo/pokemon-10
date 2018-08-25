@@ -58,8 +58,12 @@ def train(model):
     batch_size = 8
 
     train_generator = train_datagen.flow_from_directory('data/Pokemon10/train', batch_size=batch_size, target_size=(128, 128), shuffle=True, class_mode='categorical')
-    class_dictionary = train_generator.class_indices
+    # class_dictionary = train_generator.class_indices
     # print(class_dictionary)
+
+    test_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1/255)
+
+    test_generator = test_datagen.flow_from_directory('data/Pokemon10/test', batch_size=batch_size, target_size=(128, 128), class_mode='categorical')
 
     time_summary = TimeSummary()
 
@@ -68,6 +72,8 @@ def train(model):
         epochs=30,
         steps_per_epoch=20,
         verbose=1,
+        validation_data=test_generator,
+        validation_steps=20,
         callbacks=[time_summary]
     )
 

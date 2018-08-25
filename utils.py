@@ -2,23 +2,9 @@
 # I do not own and wrote this code!
 # Written by @rragundez
 # https://github.com/rragundez/PyDataAmsterdam2018/blob/master/utils.py
-import os
-import random
 import time
-from PIL import Image
-import numpy as np
 import tensorflow as tf
 from tensorflow.keras.callbacks import Callback
-
-def save_keras_dataset_to_disk(X_train, y_train, X_test, y_test):
-    for i, x_img in enumerate(X_train):
-        label = y_train[i, 0]
-        os.makedirs('data/CIFAR10/train/{}'.format(label), exist_ok=True)
-        Image.fromarray(x_img).save("data/CIFAR10/train/{}/{}.jpeg".format(label, i))
-    for i, x_img in enumerate(X_test):
-        label = y_test[i, 0]
-        os.makedirs('data/CIFAR10/test/{}'.format(label), exist_ok=True)
-        Image.fromarray(x_img).save("data/CIFAR10/test/{}/{}.jpeg".format(label, i))
 
 class TimeSummary(Callback):
     def on_train_begin(self, logs={}):
